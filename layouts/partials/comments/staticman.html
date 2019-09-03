@@ -54,7 +54,7 @@
               </div>
             {{ end }}
           {{ end }}
-          {{ partial "comments/reply_to_form.html" (dict "context" . "reply_to" $parentId "reply_to_name" .name "hasReplies" $hasReplies) }}
+          {{ partial "comments/reply_to_form.html" (dict "context" $ "reply_to" $parentId "reply_to_name" .name "hasReplies" $hasReplies) }}
 
         </div>
 
