@@ -173,22 +173,22 @@
 - id: thanks
   translation: Gracias
 
-  id: oops
+- id: oops
   translation: UPS!
 
 - id: comment_submission_confirmation
   translation: Tu comentario fue enviado y será publicado una vez que haya sido aprovado.
 
-  id: comment_submission_confirmation_pr
+- id: comment_submission_confirmation_pr
   translation: Hacé click acá para ver el pull request que generaste
   
-  id: comment_submission_failure
+- id: comment_submission_failure
   translation: Tu comentario no pudo enviarse. Por favor, probá de nuevo. Gracias!
   
-  id: comment_submission_failure_persistance
+- id: comment_submission_failure_persistance
   translation: Si el problema persiste, por favor notificame abriendo un issue
   
-  id: comment_submission_failure_open_issue
+- id: comment_submission_failure_open_issue
   translation: haciendo click aquí
 
 - id: click_here
