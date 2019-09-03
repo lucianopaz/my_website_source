@@ -3,7 +3,7 @@
     <input class="reply-to-toggler" type="checkbox" id="reply_to_{{ .reply_to }}" name="Reply"/>
     <div class="reply-to-show">
       {{ i18n "email_used_for" }} <a href="https://gravatar.com" target="_blank">{{ i18n "gravatar" }}</a> {{ i18n "email_used_for_reason" }}
-      <form class="post-new-comment" method="POST" action="https://dev.staticman.net/v3/entry/github/{{ .context.Site.Params.comments.staticman.username }}/{{ .context.Site.Params.comments.staticman.repository }}/{{ .context.Site.Params.comments.staticman.branch }}/comments">
+      <form class="post-new-comment" method="POST" action="{{ .context.Site.Params.comments.staticman.endpoint }}/{{ .context.Site.Params.comments.staticman.username }}/{{ .context.Site.Params.comments.staticman.repository }}/{{ .context.Site.Params.comments.staticman.branch }}/comments">
         <input type="hidden" name="options[redirect]" value="{{ .context.Permalink }}#comment-submitted">
         <input type="hidden" name="options[redirectError]" value="{{ .context.Permalink }}#comment-error">
         <input type="hidden" name="options[slug]" value="{{ .context.File.ContentBaseName  }}">
@@ -31,7 +31,7 @@
 
         <fieldset>
           {{ if isset .context.Site.Params.comments.staticman "recaptcha" }}
-          <div class="g-recaptcha" data-sitekey="{{ .context.Site.Params.recaptcha.siteKey }}" data-callback="enableBtn"></div>
+          <div class="g-recaptcha" data-sitekey="{{ .context.context.Site.Params.recaptcha.siteKey }}" data-callback="enableBtn"></div>
           {{ end }}
           <input type="submit" class="post-comment-field btn btn-primary" value="Submit">
           <label class="post-comment-field btn btn-primary" for="reply_to_{{ .reply_to }}">

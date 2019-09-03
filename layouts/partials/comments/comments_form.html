@@ -15,7 +15,7 @@
 <div id="comment-form">
   <h3 id="comment-form-header">{{ i18n "leave_comment" }}</h3>
   {{ i18n "email_used_for" }} <a href="https://gravatar.com" target="_blank">{{ i18n "gravatar" }}</a> {{ i18n "email_used_for_reason" }}
-  <form class="post-new-comment" method="POST" action="https://dev.staticman.net/v3/entry/github/{{ $.Site.Params.comments.staticman.username }}/{{ $.Site.Params.comments.staticman.repository }}/{{ $.Site.Params.comments.staticman.branch }}/comments">
+  <form class="post-new-comment" method="POST" action="{{ $.Site.Params.comments.staticman.endpoint }}/{{ $.Site.Params.comments.staticman.username }}/{{ $.Site.Params.comments.staticman.repository }}/{{ $.Site.Params.comments.staticman.branch }}/comments">
     <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comment-submitted">
     <input type="hidden" name="options[redirectError]" value="{{ .Permalink }}#comment-error">
     <input type="hidden" name="options[slug]" value="{{ .File.ContentBaseName  }}">
