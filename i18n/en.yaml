@@ -261,29 +261,29 @@
 
 - id: subscribe_to_new_comments
   translation: Send me an email when someone comments on this post.
-
+  
 - id: submit_comment
   translation: Submit  
-
+  
 - id: thanks
   translation: Thank you
-
-  id: oops
+  
+- id: oops
   translation: OOPS!
-
+ 
 - id: comment_submission_confirmation
   translation: Your comment has been submitted and will be published once it has been approved.
   
-  id: comment_submission_confirmation_pr
+- id: comment_submission_confirmation_pr
   translation: Click here to see the pull request you generated
   
-  id: comment_submission_failure
+- id: comment_submission_failure
   translation: Your comment has not been submitted. Please go back and try again. Thank You!
   
-  id: comment_submission_failure_persistance
+- id: comment_submission_failure_persistance
   translation: If this error persists, please open an issue by
   
-  id: comment_submission_failure_open_issue
+- id: comment_submission_failure_open_issue
   translation: clicking here
 
 - id: click_here
