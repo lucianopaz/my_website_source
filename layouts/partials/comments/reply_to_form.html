@@ -3,7 +3,7 @@
     <input class="reply-to-toggler" type="checkbox" id="reply_to_{{ .reply_to }}" name="Reply"/>
     <div class="reply-to-show">
       {{ i18n "email_used_for" }} <a href="https://gravatar.com" target="_blank">{{ i18n "gravatar" }}</a> {{ i18n "email_used_for_reason" }}
-      <form class="post-new-comment" method="POST" action="https://dev.staticman.net/v3/entry/github/{{ .context.Site.Params.staticman.username }}/{{ .context.Site.Params.staticman.repository }}/{{ .context.Site.Params.staticman.branch }}/comments">
+      <form class="post-new-comment" method="POST" action="https://dev.staticman.net/v3/entry/github/{{ .context.Site.Params.comments.staticman.username }}/{{ .context.Site.Params.comments.staticman.repository }}/{{ .context.Site.Params.comments.staticman.branch }}/comments">
         <input type="hidden" name="options[redirect]" value="{{ .context.Permalink }}#comment-submitted">
         <input type="hidden" name="options[redirectError]" value="{{ .context.Permalink }}#comment-error">
         <input type="hidden" name="options[slug]" value="{{ .context.File.ContentBaseName  }}">
@@ -12,7 +12,7 @@
         <input type="hidden" name="options[parent]" value="{{ .context.File.ContentBaseName }}">
         <input type="hidden" name="fields[reply_to]" value="{{ .reply_to }}">
         <input type="address" name="fields[botpot]" placeholder="botpot (do not fill!)" style="display:none">
-        {{ if isset .context.Site.Params.staticman "recaptcha" }}
+        {{ if isset .context.Site.Params.comments.staticman "recaptcha" }}
         <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .context.Site.Params.recaptcha.siteKey }}">
         <input type="hidden" name="options[reCaptcha][secret]" value="{{ .context.Site.Params.recaptcha.secret }}">
         {{ end }}
@@ -30,7 +30,7 @@
         </fieldset>
 
         <fieldset>
-          {{ if isset .context.Site.Params.staticman "recaptcha" }}
+          {{ if isset .context.Site.Params.comments.staticman "recaptcha" }}
           <div class="g-recaptcha" data-sitekey="{{ .context.Site.Params.recaptcha.siteKey }}" data-callback="enableBtn"></div>
           {{ end }}
           <input type="submit" class="post-comment-field btn btn-primary" value="Submit">
