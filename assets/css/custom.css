@@ -71,6 +71,9 @@
    color: #9b6bcc;
 }
 
+.comment-reply {
+  padding-left: 40px;
+}
 
 /* End staticman comment section and form */
 
