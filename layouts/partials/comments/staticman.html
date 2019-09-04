@@ -33,9 +33,9 @@
         {{ end }}
 
         <div id="{{ ._id }}" class="comment-thread">
-          <blockquote class="comment">
+          <div class="comment">
             {{ .body | markdownify }}
-          </blockquote>
+          </div>
 
           <div style="clear: both;"></div>
 
@@ -48,9 +48,9 @@
                   </figure>
                   <p class="comment-info"><strong>{{ .name }}</strong><br><i><small>{{ i18n "in_reply_to" }} {{ $parentName }}</i><br>{{ dateFormat "Monday, Jan 2, 2006" .date }}</small></p>
                 </div>
-                <blockquote class="comment">
+                <div class="comment">
                   {{ .body | markdownify }}
-                </blockquote>
+                </div>
               </div>
             {{ end }}
           {{ end }}
