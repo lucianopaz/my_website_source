@@ -169,7 +169,7 @@ sharing = true
 
   # Enable Staticman commenting by uncommenting and entering the relevant values. Be sure to comment out the disqusShortname if using Staticman.
   [comments.staticman]
-    endpoint = "https://lucianopazbot-staticman.herokuapp.com/v3/entry/github"
+    endpoint = "https://dev.staticman.net/v3/entry/github"
     username = "lucianopaz"
     repository = "my_website_source"
     branch = "master"
