@@ -77,7 +77,7 @@
    color: #9b6bcc;
 }
 
-.comment-reply {
+.comment-reply, .comment-reply-to-container {
   padding-left: 40px;
 }
 
