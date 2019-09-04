@@ -4,6 +4,12 @@
 
 /* Staticman comment section and form */
 
+.comment {
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  border-left: .25rem solid #e5e5e5;
+}
+
 .post-comments {
    margin-top: 60px;
    font-size: 0.8rem;
