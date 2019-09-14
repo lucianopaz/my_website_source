@@ -15,13 +15,21 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
+  - task: NodeTool@0 
+    inputs:
+      versionSpec: 9.x
+    displayName: "Set node version"
+
+  - script: |
+      npm install -g postcss-cli
+      npm install -g autoprefixer
+    displayName: "Install npm dependencies"
+
   - script: |
       curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
       mkdir -p $(Build.SourcesDirectory)/hugo_dir
       dpkg -x hugo_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
-      npm install -g postcss-cli
-      npm install -g autoprefixer
-    displayName: "Install Hugo and dependencies"
+    displayName: "Install Hugo"
 
   - script: $(Build.SourcesDirectory)/hugo_dir/usr/local/bin/hugo --i18n-warnings
     displayName: "Build site"
