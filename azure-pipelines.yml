@@ -19,7 +19,9 @@ jobs:
       curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
       mkdir -p $(Build.SourcesDirectory)/hugo_dir
       dpkg -x hugo_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
-    displayName: "Install Hugo"
+      npm install -g postcss-cli
+      npm install -g autoprefixer
+    displayName: "Install Hugo and dependencies"
 
   - script: $(Build.SourcesDirectory)/hugo_dir/usr/local/bin/hugo --i18n-warnings
     displayName: "Build site"
