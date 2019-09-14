@@ -6,6 +6,9 @@
 trigger:
 - master
 
+variables:
+  hugo_version: "0.58.2"
+
 jobs:
 - job: build
   pool:
