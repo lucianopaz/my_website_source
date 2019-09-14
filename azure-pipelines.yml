@@ -1,0 +1,74 @@
+# Go
+# Build your Go project.
+# Add steps that test, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/go
+
+trigger:
+- master
+
+jobs:
+- job: build
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - script: |
+      curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
+      mkdir -p $(Build.SourcesDirectory)/hugo_dir
+      dpkg -x hugo_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
+    displayName: "Install Hugo"
+
+  - script: $(Build.SourcesDirectory)/hugo_dir/usr/local/bin/hugo --i18n-warnings
+    displayName: "Build site"
+    condition: succeeded()
+
+  - task: CopyFiles@2
+    inputs:
+      contents: 'public/**'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: succeeded()
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'website'
+    condition: succeeded()
+
+- job: deploy
+  dependsOn: build
+  condition: |
+    and(
+      succeeded("build"),
+      and(
+        not(eq(variables['Build.Reason'], 'PullRequest')),
+        eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      )
+    )
+  pool:
+    vmImage: 'ubuntu-latest'
+  workspace: 'resources'  # Clear all the created content and downloaded repo information
+
+  steps:
+  - script: |
+      git config --local user.name "lucianopaz"
+      git config --local user.email $(github_email)
+      git add docs/html
+      git commit -m "Publishing GitHub Pages  ***NO_CI***"
+    displayName: 'Commit built documentation'
+    condition: succeeded()
+
+  - task: InstallSSHKey@0
+    name: install_sshkey
+    inputs:
+      knownHostsEntry: "github.com"
+      sshPublicKey: $(sshpublicDeployKey)
+      sshKeySecureFile: github_website_deploy_key
+      sshPassphrase: $(passphrase)
+    displayName: "Install repository's deploy key"
+    condition: succeeded()
+
+  - script: |
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    name: register_known_hosts
+    displayName: "Register github as known host"
+    condition: succeeded()
