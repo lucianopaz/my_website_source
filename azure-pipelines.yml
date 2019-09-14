@@ -46,7 +46,8 @@ jobs:
     )
   pool:
     vmImage: 'ubuntu-latest'
-  workspace: 'resources'  # Clear all the created content and downloaded repo information
+  workspace:
+    clean: 'resources'  # Clear all the created content and downloaded repo information
 
   steps:
   - script: |
