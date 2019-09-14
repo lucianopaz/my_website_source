@@ -35,10 +35,11 @@ jobs:
     condition: succeeded()
 
 - job: deploy
-  dependsOn: build
+  dependsOn:
+  - build
   condition: |
     and(
-      succeeded("build"),
+      succeeded('build'),
       and(
         not(eq(variables['Build.Reason'], 'PullRequest')),
         eq(variables['Build.SourceBranch'], 'refs/heads/master')
