@@ -15,6 +15,21 @@ jobs:
     vmImage: 'windows-latest'
 
   steps:
+  - task: GoTool@0
+    inputs:
+      version: '1.10'
+    displayName: "Install go"
+
+  - task: NodeTool@0 
+    inputs:
+      versionSpec: 9.x
+    displayName: "Install node"
+
+  - script: |
+      npm install -g postcss-cli
+      npm install -g autoprefixer
+    displayName: "Install npm dependencies"
+
   - script: |
       choco install hugo
       choco install hugo-extended
