@@ -1,7 +1,8 @@
 # lucianopaz.github.io
 ---
+[![Build Status](https://dev.azure.com/lucianopazneuro/lucianopazneuro/_apis/build/status/lucianopaz.my_website_source?branchName=master)](https://dev.azure.com/lucianopazneuro/lucianopazneuro/_build/latest?definitionId=2&branchName=master)
 
-The source of my personal website
+The source of my personal website. Continuously deployed with azure pipelines.
 
 ## Licence
 ---
