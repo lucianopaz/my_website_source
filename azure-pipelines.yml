@@ -36,7 +36,7 @@ jobs:
   - build
   condition: |
     and(
-    and(false,( ## Delete these after testing
+    false, and( ## Delete these after testing
       succeeded('build'),
       and(
         not(eq(variables['Build.Reason'], 'PullRequest')),
