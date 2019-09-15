@@ -15,37 +15,14 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
-  - task: GoTool@0
+  - checkout: self
+    displayName: 'Checkout repository including submodules'
+    submodules: true  # true so Hugo theme submodule is checked out
+
+  - task: HugoTask@1
+    displayName: 'Build site with Hugo'
     inputs:
-      version: '1.10'
-    displayName: "Install go"
-
-  - task: NodeTool@0 
-    inputs:
-      versionSpec: 9.x
-    displayName: "Install node"
-
-  - script: |
-      npm install -g postcss-cli
-      npm install -g autoprefixer
-    displayName: "Install npm dependencies"
-
-  - script: |
-      curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
-      mkdir -p $(Build.SourcesDirectory)/hugo_dir
-      dpkg -x hugo_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
-    displayName: "Install Hugo"
-
-  - script: $(Build.SourcesDirectory)/hugo_dir/usr/local/bin/hugo --i18n-warnings
-    displayName: "Build site"
-    condition: succeeded()
-
-  - task: CopyFiles@2
-    inputs:
-      contents: 'public/**'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-    displayName: "Stage build"
-    condition: succeeded()
+      destination: '$(Build.ArtifactStagingDirectory)'
 
   - task: PublishBuildArtifacts@1
     inputs:
@@ -59,11 +36,13 @@ jobs:
   - build
   condition: |
     and(
+    and(false,( ## Delete these after testing
       succeeded('build'),
       and(
         not(eq(variables['Build.Reason'], 'PullRequest')),
         eq(variables['Build.SourceBranch'], 'refs/heads/master')
       )
+    )) ## Delete these after testing
     )
   pool:
     vmImage: 'ubuntu-latest'
