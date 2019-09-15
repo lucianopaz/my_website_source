@@ -15,6 +15,11 @@ jobs:
     vmImage: 'windows-latest'
 
   steps:
+  - script: |
+      choco install hugo
+      choco install hugo-extended
+    displayName: "Install Hugo"
+
   - checkout: self
     displayName: 'Checkout repository including submodules'
     submodules: true  # true so Hugo theme submodule is checked out
