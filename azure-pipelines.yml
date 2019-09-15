@@ -14,11 +14,16 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
 
+  - task: GoTool@0
+    inputs:
+      version: '1.10' 
+    displayName: "Install go"
+
   steps:
   - task: NodeTool@0 
     inputs:
       versionSpec: 9.x
-    displayName: "Set node version"
+    displayName: "Install node"
 
   - script: |
       npm install -g postcss-cli
@@ -39,12 +44,14 @@ jobs:
     inputs:
       contents: 'public/**'
       targetFolder: $(Build.ArtifactStagingDirectory)
+    displayName: "Stage build"
     condition: succeeded()
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: $(Build.ArtifactStagingDirectory)
       artifactName: 'website'
+    displayName: "Publish build"
     condition: succeeded()
 
 - job: deploy
