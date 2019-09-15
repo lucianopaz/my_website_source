@@ -36,13 +36,13 @@ jobs:
   - build
   condition: |
     and(
-    false, and( ## Delete these after testing
+    false, and(
       succeeded('build'),
       and(
         not(eq(variables['Build.Reason'], 'PullRequest')),
         eq(variables['Build.SourceBranch'], 'refs/heads/master')
       )
-    )) ## Delete these after testing
+    ))
     )
   pool:
     vmImage: 'ubuntu-latest'
