@@ -14,12 +14,12 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
 
+  steps:
   - task: GoTool@0
     inputs:
-      version: '1.10' 
+      version: '1.10'
     displayName: "Install go"
 
-  steps:
   - task: NodeTool@0 
     inputs:
       versionSpec: 9.x
