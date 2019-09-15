@@ -42,7 +42,7 @@ jobs:
         not(eq(variables['Build.Reason'], 'PullRequest')),
         eq(variables['Build.SourceBranch'], 'refs/heads/master')
       )
-    ))
+    )
     )
   pool:
     vmImage: 'ubuntu-latest'
