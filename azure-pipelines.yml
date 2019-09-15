@@ -12,12 +12,12 @@ variables:
 jobs:
 - job: build
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest'
 
   steps:
   - task: GoTool@0
     inputs:
-      version: '1.10'
+      version: 1.x
     displayName: "Install go"
 
   - task: NodeTool@0 
@@ -31,18 +31,23 @@ jobs:
     displayName: "Install npm dependencies"
 
   - script: |
-      choco install hugo
-      choco install hugo-extended
+      curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
+      curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_extended_$(hugo_version)_Linux-64bit.deb
+      mkdir -p $(Build.SourcesDirectory)/hugo_dir
+      dpkg -x hugo_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
+      dpkg -x hugo_extended_$(hugo_version)_Linux-64bit.deb $(Build.SourcesDirectory)/hugo_dir
     displayName: "Install Hugo"
 
-  - checkout: self
-    displayName: 'Checkout repository including submodules'
-    submodules: true  # true so Hugo theme submodule is checked out
+  - script: $(Build.SourcesDirectory)/hugo_dir/usr/local/bin/hugo --i18n-warnings
+    displayName: "Build site"
+    condition: succeeded()
 
-  - task: HugoTask@1
-    displayName: 'Build site with Hugo'
+  - task: CopyFiles@2
     inputs:
-      destination: '$(Build.ArtifactStagingDirectory)'
+      contents: 'public/**'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    displayName: "Stage build"
+    condition: succeeded()
 
   - task: PublishBuildArtifacts@1
     inputs:
