@@ -17,7 +17,7 @@ jobs:
   steps:
   - task: GoTool@0
     inputs:
-      version: 1.x
+      version: '1.13'
     displayName: "Install go"
 
   - task: NodeTool@0 
