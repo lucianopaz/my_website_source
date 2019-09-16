@@ -20,16 +20,6 @@ jobs:
       version: '1.13'
     displayName: "Install go"
 
-  - task: NodeTool@0 
-    inputs:
-      versionSpec: 9.x
-    displayName: "Install node"
-
-  - script: |
-      npm install -g postcss-cli
-      npm install -g autoprefixer
-    displayName: "Install npm dependencies"
-
   - script: |
       curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_$(hugo_version)_Linux-64bit.deb
       curl -LO https://github.com/gohugoio/hugo/releases/download/v$(hugo_version)/hugo_extended_$(hugo_version)_Linux-64bit.deb
@@ -80,7 +70,7 @@ jobs:
           name: install_sshkey
           inputs:
             knownHostsEntry: "github.com"
-            sshPublicKey: $(sshpublicDeployKey)
+            sshPublicKey: $(sshPublicDeployKey)
             sshKeySecureFile: github_website_deploy_key
             sshPassphrase: $(passphrase)
           displayName: "Install repository's deploy key"
