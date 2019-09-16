@@ -96,11 +96,13 @@ jobs:
           displayName: 'Clone website repository and erase old content'
           condition: succeeded()
 
-        - task: DownloadPipelineArtifact@2
+        - task: DownloadBuildArtifacts@0
           inputs:
             buildType: 'current'
+            buildVersionToDownload: 'latest'
             artifactName: 'website'
-            targetPath: '$(Pipeline.Workspace)'
+            downloadPath: '$(Pipeline.Workspace)'
+          displayName: 'Download built website artifact'
           condition: succeeded()
 
         - script: |
