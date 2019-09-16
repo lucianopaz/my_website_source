@@ -81,8 +81,11 @@ jobs:
     displayName: "Register github as known host"
 
   - script: |
-      git clone ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
+      git clone --progress ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
       rm -r lucianopaz.github.io/*
+      pwd
+      ls .
+      ls -la lucianopaz.github.io/
     displayName: 'Clone website repository and erase old content'
     condition: succeeded()
 
