@@ -83,25 +83,25 @@ jobs:
             sshKeySecureFile: github_website_deploy_key
             sshPassphrase: $(passphrase)
           displayName: "Install repository's deploy key"
-      
+
         - script: |
             ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           name: register_known_hosts
           displayName: "Register github as known host"
-      
+
         - script: |
             git clone ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
             rm -r *
           displayName: 'Clone website repository and erase old content'
           condition: succeeded()
-      
+
         - task: DownloadPipelineArtifact@2
           inputs:
             buildType: 'current'
             artifactName: 'website'
             targetPath: '$(Pipeline.Workspace)'
           condition: succeeded()
-      
+
         - script: |
             git config --local user.name "lucianopaz"
             git config --local user.email $(github_email)
@@ -109,13 +109,13 @@ jobs:
             git commit -m "$(Build.SourceVersionMessage)  ***NO_CI***"
           displayName: 'Commit built website'
           condition: succeeded()
-      
-          - script: |
-              git remote set-url --push origin git@github.com:lucianopaz/lucianopaz.github.io.git
-              git push origin HEAD:master
-            displayName: 'Publish GitHub Pages'
-            condition: |
-              and(succeeded(),
-                  and(not(eq(variables['Build.Reason'], 'PullRequest')),
-                      eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-                  )
+
+        - script: |
+            git remote set-url --push origin git@github.com:lucianopaz/lucianopaz.github.io.git
+            git push origin HEAD:master
+          displayName: 'Publish GitHub Pages'
+          condition: |
+            and(succeeded(),
+                and(not(eq(variables['Build.Reason'], 'PullRequest')),
+                    eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+                )
