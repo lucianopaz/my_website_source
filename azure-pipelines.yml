@@ -70,6 +70,7 @@ jobs:
     )
   pool:
     vmImage: 'ubuntu-latest'
+  environment: lucianopaz_github_io
 
   strategy:
     runOnce:
