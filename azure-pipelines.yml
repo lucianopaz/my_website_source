@@ -43,7 +43,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: 'website'
+      artifactName: 'lucianopaz.github.io'
     displayName: "Publish build"
     condition: succeeded()
 
@@ -64,6 +64,8 @@ jobs:
     clean: 'resources'
 
   steps:
+  - checkout: none # We don't want to checkout the source repo
+
   - task: InstallSSHKey@0
     name: install_sshkey
     inputs:
@@ -80,7 +82,7 @@ jobs:
 
   - script: |
       git clone ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
-      rm -r *
+      rm -r lucianopaz.github.io/*
     displayName: 'Clone website repository and erase old content'
     condition: succeeded()
 
@@ -88,12 +90,13 @@ jobs:
     inputs:
       buildType: 'current'
       buildVersionToDownload: 'latest'
-      artifactName: 'website'
+      artifactName: 'lucianopaz.github.io'
       downloadPath: '$(Pipeline.Workspace)'
     displayName: 'Download built website artifact'
     condition: succeeded()
 
   - script: |
+      cd lucianopaz.github.io
       git config --local user.name "lucianopaz"
       git config --local user.email $(github_email)
       git add .
