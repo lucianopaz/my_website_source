@@ -47,7 +47,7 @@ jobs:
     displayName: "Publish build"
     condition: succeeded()
 
-- deployment: deploy
+- job: deploy
   dependsOn:
   - build
   condition: |
@@ -60,55 +60,53 @@ jobs:
     )
   pool:
     vmImage: 'ubuntu-latest'
-  environment: lucianopaz_github_io
+  workspace:
+    clean: 'resources'
 
-  strategy:
-    runOnce:
-      deploy:
-        steps:
-        - task: InstallSSHKey@0
-          name: install_sshkey
-          inputs:
-            knownHostsEntry: "github.com"
-            sshPublicKey: $(sshPublicDeployKey)
-            sshKeySecureFile: github_website_deploy_key
-            sshPassphrase: $(passphrase)
-          displayName: "Install repository's deploy key"
+  steps:
+  - task: InstallSSHKey@0
+    name: install_sshkey
+    inputs:
+      knownHostsEntry: "github.com"
+      sshPublicKey: $(sshPublicDeployKey)
+      sshKeySecureFile: github_website_deploy_key
+      sshPassphrase: $(passphrase)
+    displayName: "Install repository's deploy key"
 
-        - script: |
-            ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          name: register_known_hosts
-          displayName: "Register github as known host"
+  - script: |
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    name: register_known_hosts
+    displayName: "Register github as known host"
 
-        - script: |
-            git clone ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
-            rm -r *
-          displayName: 'Clone website repository and erase old content'
-          condition: succeeded()
+  - script: |
+      git clone ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
+      rm -r *
+    displayName: 'Clone website repository and erase old content'
+    condition: succeeded()
 
-        - task: DownloadBuildArtifacts@0
-          inputs:
-            buildType: 'current'
-            buildVersionToDownload: 'latest'
-            artifactName: 'website'
-            downloadPath: '$(Pipeline.Workspace)'
-          displayName: 'Download built website artifact'
-          condition: succeeded()
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      buildType: 'current'
+      buildVersionToDownload: 'latest'
+      artifactName: 'website'
+      downloadPath: '$(Pipeline.Workspace)'
+    displayName: 'Download built website artifact'
+    condition: succeeded()
 
-        - script: |
-            git config --local user.name "lucianopaz"
-            git config --local user.email $(github_email)
-            git add .
-            git commit -m "$(Build.SourceVersionMessage)  ***NO_CI***"
-          displayName: 'Commit built website'
-          condition: succeeded()
+  - script: |
+      git config --local user.name "lucianopaz"
+      git config --local user.email $(github_email)
+      git add .
+      git commit -m "$(Build.SourceVersionMessage)  ***NO_CI***"
+    displayName: 'Commit built website'
+    condition: succeeded()
 
-        - script: |
-            git remote set-url --push origin git@github.com:lucianopaz/lucianopaz.github.io.git
-            git push origin HEAD:master
-          displayName: 'Publish GitHub Pages'
-          condition: |
-            and(succeeded(),
-                and(not(eq(variables['Build.Reason'], 'PullRequest')),
-                    eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-                )
+  - script: |
+      git remote set-url --push origin git@github.com:lucianopaz/lucianopaz.github.io.git
+      git push origin HEAD:master
+    displayName: 'Publish GitHub Pages'
+    condition: |
+      and(succeeded(),
+          and(not(eq(variables['Build.Reason'], 'PullRequest')),
+              eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          )
