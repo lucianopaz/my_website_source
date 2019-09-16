@@ -82,7 +82,7 @@ jobs:
 
   - script: |
       git clone --progress ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
-      rm -r lucianopaz.github.io/*
+      rm -r lucianopaz.github.io/!(README.md)
     displayName: 'Clone website repository and erase old content'
     condition: succeeded()
 
