@@ -83,9 +83,6 @@ jobs:
   - script: |
       git clone --progress ssh://git@github.com/lucianopaz/lucianopaz.github.io.git
       rm -r lucianopaz.github.io/*
-      pwd
-      ls .
-      ls -la lucianopaz.github.io/
     displayName: 'Clone website repository and erase old content'
     condition: succeeded()
 
@@ -94,7 +91,7 @@ jobs:
       buildType: 'current'
       buildVersionToDownload: 'latest'
       artifactName: 'lucianopaz.github.io'
-      downloadPath: '$(Pipeline.Workspace)'
+      downloadPath: '$(Build.Repository.LocalPath)'
     displayName: 'Download built website artifact'
     condition: succeeded()
 
@@ -104,13 +101,9 @@ jobs:
       git config --local user.email $(github_email)
       git add .
       git commit -m "$(Build.SourceVersionMessage)  ***NO_CI***"
-    displayName: 'Commit built website'
-    condition: succeeded()
-
-  - script: |
       git remote set-url --push origin git@github.com:lucianopaz/lucianopaz.github.io.git
       git push origin HEAD:master
-    displayName: 'Publish GitHub Pages'
+    displayName: 'Commit and publish built website'
     condition: |
       and(succeeded(),
           and(not(eq(variables['Build.Reason'], 'PullRequest')),
