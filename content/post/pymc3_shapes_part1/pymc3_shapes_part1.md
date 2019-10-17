@@ -43,7 +43,7 @@ This post is intended to explain:
 * How does a distribution's `shape` determine the `shape` of its `logp` output.
 * The potential trouble this can bring with samples drawn from the prior or from the posterior predictive distributions.
 * The many implicit semantically relevant shapes associated with pymc3 models. We will follow the naming convention used by tensorflow probability and talk about sample, batch and event shapes.
-* Some best practices to avoid falling into the many circles of shape hell (or at least be able to maneuver inside them). _In a separate blog post!_
+* I plan to write a separate post with some best practices to avoid falling into the many circles of shape hell (or at least be able to maneuver inside them).
 
 ## The origin of all ~~evil~~ ambiguity
 
@@ -416,7 +416,7 @@ sns.distplot([unvectorized_prior_sampler() for _ in range(5000)]);
 ```
 
 
-![png](index_files/index_33_0.png)
+![png](/pymc3_shapes_part1_files/pymc3_shapes_part1_33_0.png)
 
 
 Nice! Everything works! Now lets try to do the same but taking advantage of `size` to draw multiple values at once and vectorize operations
@@ -550,7 +550,7 @@ sns.distplot(vectorized_prior_sampler(sample_shape=5000));
 ```
 
 
-![png](index_files/index_42_0.png)
+![png](/pymc3_shapes_part1_files/pymc3_shapes_part1_42_0.png)
 
 
 Things can still go horribly wrong if we pass a stack of multiple `X` vectors. This is a big deal because it happens when we set more than a single observed `X` and `y`.
@@ -630,7 +630,7 @@ plt.axis("off");
 ```
 
 
-![png](index_files/index_46_0.png)
+![png](/pymc3_shapes_part1_files/pymc3_shapes_part1_46_0.png)
 
 
 #### Summary
@@ -711,7 +711,7 @@ with model_factory(X, y) as model:
 
 
 
-![png](index_files/index_50_3.png)
+![png](/pymc3_shapes_part1_files/pymc3_shapes_part1_50_3.png)
 
 
 The resulting trace seems mostly fine, the posterior densities are around where they should be, and the model seems to have converged well enough (I don't show the checks here to avoid clobbering the post). Lets just pay attention to the `shape` parameters that I passed along in the model's definition.
