@@ -16,7 +16,10 @@ done
 SOURCEDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 jupyter nbconvert --to markdown $FILEDIR/$FILENAME.$EXTENSION
-cat $FILEDIR/$FILENAMEe.md | sed -i "s/\!\[png\](/\!\[png\](\//g" $FILEDIR/$FILENAME.md
-mv $FILEDIR/${FILENAME}_files $SOURCEDIR/../static/
-
-
+cat $FILEDIR/$FILENAME.md | sed -e "s/\!\[png\](/\!\[png\](\//g" > $FILEDIR/index.md
+if [[ $FILENAME != index ]]
+then
+  rm $FILEDIR/$FILENAME.md
+fi
+cp -rf $FILEDIR/${FILENAME}_files $SOURCEDIR/../static/
+rm -r $FILEDIR/${FILENAME}_files
