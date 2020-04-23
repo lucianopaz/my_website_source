@@ -59,8 +59,8 @@ time_format = "15:04"
 
 # Enter contact details (optional). To hide a field, clear it to "".
 email = "luciano.paz.neuro@gmail.com"
-phone = "+39 040 3787 237"
-address = "Via Bonomea 265, 34136 Trieste, TS, Italia"
+phone = ""
+address = "Via dell Follatoio 12, 34148 Trieste, TS, Italia"
 
 # Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
 office_hours = ""
