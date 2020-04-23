@@ -10,12 +10,12 @@ authors:
 superuser: true
 
 # Role/position
-role: Postdoctoral researcher in Neuroscience
+role: Machine learning engineer
 
 # Organizations/Affiliations
 organizations:
-- name: Scuola Internazionale Superiore di Studi Avanzati
-  url: "https://www.sissa.it/"
+- name: Innova SpA
+  url: "https://www.innovatrieste.it/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: I specialize in computational models for data analytics
@@ -25,6 +25,7 @@ interests:
 - Bayesian Inference
 - Stochastic Dynamics
 - Data Science
+- Probabilistic Programing
 
 education:
   courses:
@@ -66,7 +67,9 @@ email: ""
 user_groups: []
 ---
 
-I'm currently a computational neuroscience researcher. I've worked mostly building computational and mathematical models for behavior ranging from simple perceptual tasks in rodents to complex planning in humans. My specialty is to extract meaningful and actionable information from data.
+I'm currently a machine learning engineer working at Innova SpA in Trieste, Italy.
+
+In a past lift I worked researching computational neuroscience. During that time, I mostly built computational and mathematical models for behavior ranging from simple perceptual tasks in rodents to complex planning in humans.
 
 I've worked with diverse tools and frameworks such as bayesian inference, machine learning, artificial intelligence, and stochastic dynamics.
 
