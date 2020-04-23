@@ -19,6 +19,17 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
+  organization = "NUMFOCUS"
+  organization_url = "https://numfocus.org"
+  title = "Pymc3 new contributor acknowledgment"
+  url = "https://numfocus.org/blog/2019-numfocus-awards"
+  certificate_url = ""
+  date_start = "2019"
+  date_end = "2019"
+  description = """
+  """
+
+[[item]]
   organization = "SISSA"
   organization_url = "https://www.sissa.it/"
   title = "PHD4PMI"
