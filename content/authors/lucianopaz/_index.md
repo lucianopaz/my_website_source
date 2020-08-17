@@ -69,7 +69,7 @@ user_groups: []
 
 I'm currently a machine learning engineer working at Innova SpA in Trieste, Italy.
 
-In a past lift I worked researching computational neuroscience. During that time, I mostly built computational and mathematical models for behavior ranging from simple perceptual tasks in rodents to complex planning in humans.
+In a past life I worked researching computational neuroscience. During that time, I mostly built computational and mathematical models for behavior ranging from simple perceptual tasks in rodents to complex planning in humans.
 
 I've worked with diverse tools and frameworks such as bayesian inference, machine learning, artificial intelligence, and stochastic dynamics.
 
